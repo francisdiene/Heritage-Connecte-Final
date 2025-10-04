@@ -1,0 +1,15 @@
+{
+  "general": {
+    "app_title": "Heritage Connecté",
+    "welcome_message": "Explorez l'histoire et les civilisations.",
+    "scan_button": "Scanner une œuvre",
+    "audio_player_label": "Écouter la description",
+    "language_selector": "Langue",
+    "description_section": "Description de l'œuvre"
+  },
+  "oeuvre": {
+    "historical_context": "Contexte historique",
+    "video_title": "Documentaire lié",
+    "scanner_instructions": "Cadrez le QR Code pour commencer l'expérience immersive."
+  }
+}
