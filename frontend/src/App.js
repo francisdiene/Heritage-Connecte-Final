@@ -27,3 +27,6 @@ function App() {
 }
 
 export default App;
+// frontend/src/App.js
+
+// Dernière mise à jour pour le pitch 14h : 39 minutes le 05/10/2025]
