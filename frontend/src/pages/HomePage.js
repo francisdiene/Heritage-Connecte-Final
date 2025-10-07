@@ -4,37 +4,56 @@ import React from 'react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { Link } from 'react-router-dom';
 
+// frontend/src/pages/HomePage.js
+
+// ... imports existants
+
 const HomePage = () => {
   const { t } = useLanguage();
   return (
-    // 1. Conteneur principal avec la classe CSS pour l'image de fond
     <div className="home-background"> 
-        {/* 2. Filtre Overlay pour la lisibilité et contenu centré */}
         <div style={{ 
+            // ... styles existants (textAlign: 'center', etc.)
             textAlign: 'center', 
             padding: '50px', 
-            minHeight: '100vh', // Assure que le contenu prend toute la hauteur de la vue
+            minHeight: '100vh', 
             display: 'flex',
             flexDirection: 'column',
-            justifyContent: 'center', // Centre le contenu verticalement
-            backgroundColor: 'rgba(0, 0, 0, 0.4)' // Overlay semi-transparent noir (40%)
+            justifyContent: 'center', 
+            backgroundColor: 'rgba(0, 0, 0, 0.4)' 
         }}>
             <h1 style={{ color: 'white' }}>{t('general.app_title')}</h1>
             <p style={{ fontSize: '1.2em', color: 'white' }}>{t('general.welcome_message')}</p>
             
-            {/* Le lien Scan (le style existant est conservé) */}
-            <Link to="/scan" style={{ 
-                display: 'inline-block', 
-                marginTop: '20px', 
-                padding: '10px 20px', 
-                backgroundColor: '#007bff', 
-                color: 'white', 
-                textDecoration: 'none', 
-                borderRadius: '5px', 
-                fontSize: '1.1em' 
-            }}>
-                {t('general.scan_button')}
-            </Link>
+            {/* Conteneur des boutons pour les aligner */}
+            <div style={{ marginTop: '20px' }}>
+                {/* Bouton SCAN existant */}
+                <Link to="/scan" style={{ 
+                    display: 'inline-block', 
+                    padding: '10px 20px', 
+                    backgroundColor: '#007bff', 
+                    color: 'white', 
+                    textDecoration: 'none', 
+                    borderRadius: '5px', 
+                    fontSize: '1.1em',
+                    marginRight: '15px' // Marge pour séparer les boutons
+                }}>
+                    {t('general.scan_button')}
+                </Link>
+                
+                {/* Bouton GALERIE NOUVEAU */}
+                <Link to="/galerie" style={{ 
+                    display: 'inline-block', 
+                    padding: '10px 20px', 
+                    backgroundColor: '#00a000', // Couleur différente pour le contraste
+                    color: 'white', 
+                    textDecoration: 'none', 
+                    borderRadius: '5px', 
+                    fontSize: '1.1em'
+                }}>
+                    Photos Officielles
+                </Link>
+            </div>
         </div>
     </div>
   );

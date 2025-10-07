@@ -11,3 +11,19 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/* CORRECTION CRITIQUE DU CHEMIN */
+.home-background {
+    /* On sort de /src/ et on va dans /public/ */
+    background-image: url('../public/background.jpg'); 
+
+    /* ... ou plus simplement (et souvent mieux) : */
+    /* background-image: url('/background.jpg'); */
+    /* Si /background.jpg ne fonctionne pas, utilisez ../../public/background.jpg si vous êtes dans un sous-dossier de src */
+
+    /* TESTEZ CE CHEMIN D'ABORD : */
+    background-image: url('./background.jpg'); 
+
+    /* Si l'image est dans /public/, c'est React qui devrait la trouver */
+    /* S'il s'agit de index.css, le chemin absolu devrait être le bon après le build Vercel, mais le serveur de dev local n'aime pas ça. */
+}

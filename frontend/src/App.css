@@ -38,23 +38,19 @@
 }
 /* frontend/src/App.css ou frontend/src/index.css */
 
+/* Collez ceci dans frontend/src/index.css (ou App.css) */
+
 .home-background {
-    /* 1. Chemin vers l'image dans le dossier public */
-    background-image: url('/musee-mcn-bg.jpg'); 
+    /* Assurez-vous d'avoir COPIÉ background.jpg dans /src/ pour cette correction */
+    background-image: url('./background.jpg'); 
     
-    /* 2. S'assurer que l'image couvre toute la surface */
     background-size: cover; 
-    
-    /* 3. Empêcher l'image de se répéter */
     background-repeat: no-repeat; 
-    
-    /* 4. Fixer l'image pour qu'elle ne bouge pas (effet parallax léger) */
     background-attachment: fixed;
-    
-    /* 5. Centrer l'image */
     background-position: center center;
     
-    /* 6. Assurer que le conteneur prend la hauteur de la fenêtre */
     min-height: 100vh;
     width: 100%;
 }
+
+/* ... tout autre CSS existant ... */

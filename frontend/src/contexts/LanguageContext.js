@@ -34,6 +34,29 @@ export const LanguageProvider = ({ children }) => {
         setLanguage, 
         t
     };
+    // frontend/src/contexts/LanguageContext.js (Ajoutez ceci dans l'objet 'translations')
+
+const translations = {
+    fr: {
+        // ... vos clés existantes
+        'general.back_home': 'Retour à l\'accueil',
+        'general.gallery_title': 'Galerie Officielle du Musée',
+        'gallery.official_photos': 'Découvrez les clichés exclusifs envoyés directement par les organisateurs du musée.',
+    },
+    en: {
+        // ... vos clés existantes
+        'general.back_home': 'Back to Home',
+        'general.gallery_title': 'Official Museum Gallery',
+        'gallery.official_photos': 'Discover exclusive shots sent directly by the museum organizers.',
+    },
+    wo: {
+        // ... vos clés existantes
+        'general.back_home': 'Dëkki-ji',
+        'general.gallery_title': 'Nataal yi Sopu (Galerie)',
+        'gallery.official_photos': 'Jàppal nataal yu sóopu yii ñu génne ànd ak jàmm.',
+    },
+    // ...
+};
 
     return (
         <LanguageContext.Provider value={value}>

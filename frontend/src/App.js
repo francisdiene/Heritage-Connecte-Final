@@ -1,32 +1,38 @@
 // frontend/src/App.js
 
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+// BrowserRouter est renommé Router pour la clarté.
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-// Pages
+// IMPORTS DES PAGES
 import HomePage from './pages/HomePage';
 import ScanPage from './pages/ScanPage';
 import OeuvrePage from './pages/OeuvrePage';
-
-// Composants
-import Navigation from './components/Navigation';
+import GalleryPage from './pages/GalleryPage'; 
 
 function App() {
   return (
-    <div className="App">
-      <Navigation /> 
-      <main>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/scan" element={<ScanPage />} />
+    // Le Router enveloppe toute l'application pour gérer la navigation
+    <Router> 
+      <div className="App">
+        {/* Les Routes définissent les chemins d'accès */}
+        <Routes> 
+          {/* Page d'accueil (chemin par défaut) */}
+          <Route path="/" element={<HomePage />} /> 
+          
+          {/* Page de Scan */}
+          <Route path="/scan" element={<ScanPage />} /> 
+          
+          {/* Page de l'Œuvre (avec paramètre dynamique :id_qr) */}
           <Route path="/oeuvre/:id_qr" element={<OeuvrePage />} />
+          
+          {/* Page de la Galerie Photos (nouvelle) */}
+          <Route path="/galerie" element={<GalleryPage />} /> 
         </Routes>
-      </main>
-    </div>
+      </div>
+    </Router>
   );
 }
 
+// Export du composant principal
 export default App;
-// frontend/src/App.js
-
-// Dernière mise à jour pour le pitch 14h : 39 minutes le 05/10/2025]

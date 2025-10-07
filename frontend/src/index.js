@@ -1,23 +1,25 @@
 // frontend/src/index.js
 
 import React from 'react';
-// 1. Changement : Importe les fonctionnalités client de React 18
-import ReactDOM from 'react-dom/client'; 
-import { BrowserRouter } from 'react-router-dom';
-import App from './App';
-import { LanguageProvider } from './contexts/LanguageContext';
+import ReactDOM from 'react-dom/client';
+
+// Ligne critique : importe le CSS global. Le CSS doit y être.
 import './index.css'; 
 
-// 2. Changement : Crée une "racine" pour l'application
-const root = ReactDOM.createRoot(document.getElementById('root'));
+import App from './App';
+import reportWebVitals from './reportWebVitals';
 
-// 3. Changement : Utilise la méthode render de cette racine
+// Import du Context Multilingue
+import { LanguageProvider } from './contexts/LanguageContext'; 
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <LanguageProvider>
-        <App />
-      </LanguageProvider>
-    </BrowserRouter>
+    {/* TOUTE L'APPLICATION EST DANS LE LanguageProvider */}
+    <LanguageProvider> 
+      <App />
+    </LanguageProvider>
   </React.StrictMode>
 );
+
+reportWebVitals();
