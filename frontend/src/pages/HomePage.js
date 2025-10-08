@@ -72,16 +72,12 @@ const HomePage = () => {
                 </div>
 
                 {/* NOUVEAU : QR CODE */}
-                // ... dans la fonction HomePage, dans la div style={overlayStyle} ...
-
-                {/* NOUVEAU : QR CODE */}
                 <div style={{ marginTop: '30px' }}>
                     <p style={{ fontSize: '1.1em', color: 'white', marginBottom: '15px' }}>{t('general.qr_cta')}</p>
-                    {/* 🛑 CORRECTION ICI : Redirige vers la racine / */}
-                    <Link to="/"> 
+                    <Link to="/oeuvre/masque-sagesse-fix"> {/* Lien direct vers la démo du masque */}
                         <img 
                             src="/qr-masque-demo.png" 
-                            alt="QR Code Accueil" 
+                            alt="QR Code Masque Démo" 
                             style={{ 
                                 width: '150px', // Taille du QR code
                                 height: 'auto', 
@@ -92,8 +88,6 @@ const HomePage = () => {
                         />
                     </Link>
                 </div>
-
-// ...
 
             </div>
         </div>
