@@ -1,67 +1,64 @@
-// frontend/src/pages/GalleryPage.js
+// frontend/src/pages/GalleryPage.js - CODE FINAL AVEC BOUCLE
 
 import React from 'react';
-import { useLanguage } from '../contexts/LanguageContext';
 import { Link } from 'react-router-dom';
-
-// Liste des chemins d'accès aux images dans le dossier public/musee-images
-// MODIFIEZ CETTE LISTE AVEC LES NOMS EXACTS DE VOS FICHIERS
-const MUSEUM_IMAGE_PATHS = [
-    '/musee-images/image-01.jpg', 
-    '/musee-images/image-02.jpg', 
-    '/musee-images/image-03.jpg', 
-    // Ajoutez ici TOUS les autres chemins /musee-images/image-XX.jpg
-];
+import galleryData from '../data/galleryData'; // <--- ASSUREZ-VOUS QUE LE CHEMIN EST CORRECT
 
 const GalleryPage = () => {
-    const { t } = useLanguage();
     
-    // Style simple pour l'affichage en grille
-    const galleryStyle = {
-        display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-        gap: '20px',
-        padding: '20px',
-        maxWidth: '1200px',
-        margin: '0 auto',
-    };
-    
-    const imageContainerStyle = {
-        overflow: 'hidden',
-        borderRadius: '8px',
-        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-    };
-    
-    const imageStyle = {
-        width: '100%',
-        height: '250px',
-        objectFit: 'cover', // Assure que l'image couvre l'espace sans être déformée
-        transition: 'transform 0.3s ease-in-out',
+    // Fonction de secours pour le texte (FR fixe)
+    const t = (key) => {
+        if (key === 'gallery.title') return "Galerie Photos Officielles";
+        if (key === 'gallery.description') return "Explorez les collections d'images du Musée des Civilisations Noires.";
+        return key; 
     };
 
     return (
-        <div>
-            <div style={{ textAlign: 'center', padding: '20px', borderBottom: '1px solid #eee' }}>
-                <Link to="/" style={{ float: 'left', textDecoration: 'none', color: '#007bff', fontWeight: 'bold' }}>
-                    &larr; {t('general.back_home')}
-                </Link>
-                <h1 style={{ margin: 0 }}>{t('general.gallery_title')}</h1>
-                <p>{t('gallery.official_photos')}</p>
-            </div>
-
-            <div style={galleryStyle}>
-                {MUSEUM_IMAGE_PATHS.map((path, index) => (
-                    <div key={index} style={imageContainerStyle}>
-                        <img 
-                            src={path} 
-                            alt={`Photo officielle du musée ${index + 1}`} 
-                            style={imageStyle}
-                        />
-                    </div>
+        <div style={{ padding: '20px', maxWidth: '1200px', margin: '0 auto' }}>
+            <h1>{t('gallery.title')}</h1>
+            <p style={{ marginBottom: '40px' }}>{t('gallery.description')}</p>
+            
+            {/* GRILLE D'AFFICHAGE DES PHOTOS */}
+            <div style={{ 
+                display: 'grid', 
+                gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', 
+                gap: '30px' 
+            }}>
+                {/* BOUCLE SUR LES 14 ÉLÉMENTS */}
+                {galleryData.map((item) => (
+                    <Link 
+                        key={item.id} 
+                        to={`/oeuvre/${item.id}`}
+                        style={{ textDecoration: 'none', color: 'inherit' }}
+                    >
+                        <div style={{ 
+                            border: '1px solid #ddd', 
+                            borderRadius: '8px', 
+                            overflow: 'hidden', 
+                            boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
+                            transition: 'transform 0.2s'
+                        }}>
+                            {/* Image */}
+                            <img 
+                                src={item.imagePath} 
+                                alt={item.title} 
+                                style={{ 
+                                    width: '100%', 
+                                    height: '250px', 
+                                    objectFit: 'cover' 
+                                }} 
+                            />
+                            {/* Texte */}
+                            <div style={{ padding: '15px' }}>
+                                <h3 style={{ margin: '0 0 5px 0', color: '#007bff' }}>{item.title}</h3>
+                                <p style={{ margin: 0, fontSize: '0.9em', color: '#555' }}>{item.description}</p>
+                            </div>
+                        </div>
+                    </Link>
                 ))}
             </div>
         </div>
     );
 };
 
-export default GalleryPage; 
+export default GalleryPage;
