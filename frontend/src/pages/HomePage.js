@@ -1,18 +1,19 @@
-// frontend/src/pages/HomePage.js - CODE SÉCURISÉ AVEC IMAGE DE FOND ET QR CODE
-
+// frontend/src/pages/HomePage.js - CODE FINAL AVEC FORMULAIRE
 import React from 'react';
 import { Link } from 'react-router-dom';
+import ContactForm from '../components/ContactForm'; // 🛑 L'IMPORTATION EST CORRECTE
 
 const HomePage = () => {
     
+    // Logique de secours pour le texte (FR fixe)
     const t = (key) => {
         if (key === 'general.app_title') return "Heritage Connecté";
         if (key === 'general.welcome_message') return "Plongez au cœur des trésors du Musée des Civilisations Noires.";
         if (key === 'general.scan_button') return "Scanner un QR Code";
-        if (key === 'general.qr_cta') return "Scannez-moi pour la Démo !"; // Nouveau texte
         return key; 
     }; 
     
+    // Style de l'arrière-plan intégrant l'image (Image-02.jpg)
     const backgroundStyle = {
         backgroundImage: 'url(/image-02.jpg)', 
         backgroundSize: 'cover',
@@ -21,13 +22,15 @@ const HomePage = () => {
         minHeight: '100vh', 
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'center', 
+        // 🛑 CORRECTION ICI : Aligner le contenu au début pour laisser de la place en bas
+        justifyContent: 'flex-start', 
         alignItems: 'center', 
         textAlign: 'center',
         color: 'white',
-        padding: '20px'
+        padding: '50px 20px' // Ajout de padding supérieur pour l'esthétique
     };
     
+    // Style de la superposition sombre pour la lisibilité du texte
     const overlayStyle = {
         backgroundColor: 'rgba(0, 0, 0, 0.6)', 
         padding: '50px', 
@@ -42,7 +45,8 @@ const HomePage = () => {
                 <p style={{ fontSize: '1.4em', color: '#eee', marginBottom: '40px' }}>{t('general.welcome_message')}</p>
                 
                 {/* Conteneur des boutons */}
-                <div style={{ marginTop: '20px', marginBottom: '40px' }}> {/* Marge inférieure ajoutée */}
+                <div style={{ marginTop: '20px' }}>
+                    {/* Bouton SCAN */}
                     <Link to="/scan" style={{ 
                         display: 'inline-block', 
                         padding: '12px 25px', 
@@ -57,6 +61,7 @@ const HomePage = () => {
                         {t('general.scan_button')}
                     </Link>
                     
+                    {/* Bouton GALERIE */}
                     <Link to="/galerie" style={{ 
                         display: 'inline-block', 
                         padding: '12px 25px', 
@@ -70,26 +75,11 @@ const HomePage = () => {
                         Photos Officielles
                     </Link>
                 </div>
-
-                {/* NOUVEAU : QR CODE */}
-                <div style={{ marginTop: '30px' }}>
-                    <p style={{ fontSize: '1.1em', color: 'white', marginBottom: '15px' }}>{t('general.qr_cta')}</p>
-                    <Link to="/oeuvre/masque-sagesse-fix"> {/* Lien direct vers la démo du masque */}
-                        <img 
-                            src="/qr-masque-demo.png" 
-                            alt="QR Code Masque Démo" 
-                            style={{ 
-                                width: '150px', // Taille du QR code
-                                height: 'auto', 
-                                border: '5px solid white', 
-                                borderRadius: '5px',
-                                cursor: 'pointer'
-                            }} 
-                        />
-                    </Link>
-                </div>
-
             </div>
+            
+            {/* 🛑 APPEL DU COMPOSANT : Le formulaire sera visible en dessous */}
+            <ContactForm />
+            
         </div>
     );
 };
