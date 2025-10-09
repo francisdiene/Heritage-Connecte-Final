@@ -53,10 +53,10 @@ const HomePage = () => {
             
             {/* 1. BOUTON CONNEXION (en haut à droite) */}
             <div style={{ alignSelf: 'flex-end', width: '100%', maxWidth: '90%', textAlign: 'right', paddingRight: '10px' }}>
-                 <Link to="/admin" 
-                    style={{ 
-                        padding: '10px 18px', 
-                        backgroundColor: 'rgba(255, 255, 255, 0.1)', 
+     <Link to="/admin" // 🛑 CORRECTION CLÉ : Retourne au login admin
+        style={{ 
+            padding: '10px 18px', 
+            backgroundColor: 'rgba(255, 255, 255, 0.1)',  
                         color: 'white', 
                         textDecoration: 'none', 
                         border: '1px solid rgba(255, 255, 255, 0.3)', 

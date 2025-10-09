@@ -1,63 +1,87 @@
-// frontend/src/pages/ScanPage.js - CODE SÉCURISÉ FINAL
+// frontend/src/pages/ScanPage.js
 
 import React, { useState } from 'react';
-// L'IMPORTATION DE USELANGUAGE EST COMMENTÉE POUR ÉVITER LE CRASH DE CONTEXTE
-// import { useLanguage } from '../contexts/LanguageContext'; 
 import { useNavigate } from 'react-router-dom';
+import { QrReader } from 'react-qr-reader';
 
 const ScanPage = () => {
-    
-    // Logique de secours pour le texte (FR fixe)
-    const t = (key) => {
-        if (key === 'scan.title') return "Scanner un QR Code";
-        if (key === 'scan.placeholder') return "Entrez l'ID QR manuellement (Ex: masque-sagesse-fix)";
-        if (key === 'scan.button') return "Charger l'Œuvre";
-        return key; 
-    };
-    
-    // Logique de navigation/scan
-    const [qrCode, setQrCode] = useState('');
     const navigate = useNavigate();
+    const [scanResult, setScanResult] = useState('');
+    const [error, setError] = useState(null);
 
-    const handleScan = () => {
-        // Redirige vers la page de l'œuvre avec l'ID entré
-        if (qrCode) {
-            navigate(`/oeuvre/${qrCode}`);
+    const handleScan = (data) => {
+        // data est le résultat du scan (l'ID du QR code)
+        if (data) {
+            setScanResult(data);
+            console.log('QR Code détecté:', data);
+
+            // 🛑 Logique de Redirection : 
+            // Nous supposons que le QR code contient directement l'ID de l'oeuvre (ex: "image-01")
+            navigate(`/oeuvre/${data}`);
         }
     };
 
-    return (
-        <div style={{ padding: '20px', maxWidth: '500px', margin: '0 auto', textAlign: 'center' }}>
-            <h1>{t('scan.title')}</h1>
-            <p style={{ margin: '20px 0' }}>{t('scan.placeholder')}</p>
+    const handleError = (err) => {
+        // En cas d'erreur (ex: caméra non trouvée ou permission refusée)
+        console.error(err);
+        setError("Erreur d'accès à la caméra. Vérifiez les permissions.");
+    };
 
-            {/* Champ de saisie pour l'ID manuel */}
-            <input 
-                type="text"
-                placeholder={t('scan.placeholder')}
-                value={qrCode}
-                onChange={(e) => setQrCode(e.target.value)}
-                style={{ width: '100%', padding: '12px', margin: '15px 0', border: '2px solid #007bff', borderRadius: '5px' }}
-            />
+    return (
+        <div style={{ textAlign: 'center', padding: '20px', backgroundColor: '#f0f0f0', minHeight: '100vh' }}>
+            <h1 style={{ color: '#333', marginBottom: '30px' }}>Scanner un QR Code</h1>
             
-            <button 
-                onClick={handleScan}
+            <div style={{ 
+                maxWidth: '400px', 
+                margin: '0 auto', 
+                padding: '20px', 
+                border: '1px solid #ccc', 
+                borderRadius: '10px',
+                backgroundColor: 'white'
+            }}>
+                {/* 🛑 COMPOSANT DU LECTEUR QR CODE */}
+                <QrReader
+                    onResult={(result, error) => {
+                        if (!!result) {
+                            handleScan(result?.text);
+                        }
+                        if (!!error) {
+                            // On peut choisir d'afficher l'erreur ici ou la gérer silencieusement
+                            // console.info(error); 
+                        }
+                    }}
+                    constraints={{ facingMode: 'environment' }} // Utilise la caméra arrière du téléphone
+                    containerStyle={{ width: '100%', height: 'auto' }}
+                    videoStyle={{ borderRadius: '8px' }}
+                />
+                
+                {/* Message d'état pour le visiteur */}
+                {scanResult && (
+                    <p style={{ marginTop: '20px', color: '#00a000', fontWeight: 'bold' }}>
+                        QR Code scanné ! Redirection...
+                    </p>
+                )}
+
+                {error && (
+                    <p style={{ marginTop: '20px', color: '#dc3545', fontWeight: 'bold' }}>{error}</p>
+                )}
+            </div>
+            
+            {/* Bouton de secours ou pour revenir en arrière */}
+            <button
+                onClick={() => navigate('/')}
                 style={{ 
+                    marginTop: '40px', 
                     padding: '10px 20px', 
                     backgroundColor: '#007bff', 
                     color: 'white', 
                     border: 'none', 
                     borderRadius: '5px', 
-                    cursor: 'pointer',
-                    fontSize: '1.1em'
+                    cursor: 'pointer' 
                 }}
             >
-                {t('scan.button')}
+                Annuler
             </button>
-            
-            <p style={{ marginTop: '20px', fontSize: '0.9em', color: '#666' }}>
-                *Le composant de scan par caméra est désactivé pour la stabilité de la démo.
-            </p>
         </div>
     );
 };
