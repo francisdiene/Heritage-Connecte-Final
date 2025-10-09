@@ -1,39 +1,42 @@
 // frontend/src/App.js
 
 import React from 'react';
-// Importation des composants du routeur
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-// IMPORTS DES PAGES
-// Assurez-vous que ces fichiers existent et sont inclus dans votre push
+// Importez vos pages
 import HomePage from './pages/HomePage';
 import ScanPage from './pages/ScanPage';
-import OeuvrePage from './pages/OeuvrePage';
-import GalleryPage from './pages/GalleryPage'; 
+import GalleryPage from './pages/GalleryPage';
+import OeuvrePage from './pages/OeuvrePage'; 
+import AdminPage from './pages/AdminPage'; // <-- NOUVEL IMPORT ADMIN
+import NotFound from './pages/NotFound'; // Page d'erreur
 
-function App() {
+const App = () => {
   return (
-    // Le Router enveloppe toute l'application
-    <Router> 
+    <Router>
       <div className="App">
-        {/* Les Routes définissent les chemins d'accès et les composants à rendre */}
-        <Routes> 
-          {/* Page d'accueil (chemin par défaut) */}
-          <Route path="/" element={<HomePage />} /> 
+        <Routes>
           
-          {/* Page de Scan */}
-          <Route path="/scan" element={<ScanPage />} /> 
+          {/* 1. ROUTE RACINE : La page d'accueil par défaut */}
+          <Route path="/" element={<HomePage />} />
           
-          {/* Page de l'Œuvre (avec paramètre dynamique pour l'ID QR) */}
+          {/* 2. ROUTES PRINCIPALES DE L'APPLICATION */}
+          <Route path="/scan" element={<ScanPage />} />
+          <Route path="/galerie" element={<GalleryPage />} />
+          
+          {/* 3. ROUTE DYNAMIQUE : Pour l'affichage des œuvres (via scan ou galerie) */}
           <Route path="/oeuvre/:id_qr" element={<OeuvrePage />} />
           
-          {/* Page de la Galerie Photos (nouvelle) */}
-          <Route path="/galerie" element={<GalleryPage />} /> 
+          {/* 4. ROUTE ADMIN : Pour le bouton "Se Connecter" */}
+          <Route path="/admin" element={<AdminPage />} /> 
+
+          {/* 5. ROUTE CATCH-ALL : Affiché si aucune autre route ne correspond */}
+          <Route path="*" element={<NotFound />} />
+          
         </Routes>
       </div>
     </Router>
   );
-}
+};
 
-// Export du composant principal
 export default App;
